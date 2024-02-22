@@ -1,24 +1,32 @@
 '''Calculation Class'''
+from decimal import Decimal
+from typing import Callable
 
 class Calculation:
-    '''defines a calculation class and initialized the operation along with arguments'''
-    def __init__(self, arg_a, arg_b):
+    '''calculation class with the class method'''
+
+    def __init__(self, arg_a: Decimal, arg_b: Decimal,
+                 operation: Callable[[Decimal, Decimal], Decimal]):
         self.arg_a = arg_a
         self.arg_b = arg_b
-        self.operation = None
+        self.operation = operation
 
     @classmethod
     def create(cls, arg_a, arg_b, operation):
-        '''Creates and instance of the class with operation to perform on the specified arguments'''
-        instance = cls(arg_a, arg_b)
+        """
+        Creates a Calculation instance with the specified operation.
+        """
+        instance = cls(arg_a, arg_b, operation)
         instance.operation = operation
         return instance
     def perform(self):
         """Perform the stored calculation and return the result."""
         return self.operation(self.arg_a, self.arg_b)
+
     def get_result(self):
-        '''returns the result of the operation specified on the arguments'''
+        """
+        Calculates the result using the stored operation function.
+        """
         if self.operation is None:
-            raise ValueError("listed operation cannot be found")
+            raise ValueError("Operation is not defined")
         return self.operation(self.arg_a, self.arg_b)
-    
