@@ -16,5 +16,5 @@ def divide(arg_a,arg_b):
     '''Divides the given arguments'''
 
     if arg_b == 0:
-        raise ValueError("cannot divide by 0")
+        raise ValueError("Division by zero is not possible")
     return arg_a / arg_b
